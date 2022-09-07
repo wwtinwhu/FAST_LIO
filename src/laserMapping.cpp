@@ -356,9 +356,9 @@ void imu_cbk(const sensor_msgs::Imu::ConstPtr &msg_in)
     last_timestamp_imu = timestamp;
 
     // for helmet imu process
-    msg->angular_velocity.x *= M_PI/180.0;
-    msg->angular_velocity.y *= M_PI/180.0;
-    msg->angular_velocity.z *= M_PI/180.0;
+//    msg->angular_velocity.x *= M_PI/180.0;
+//    msg->angular_velocity.y *= M_PI/180.0;
+//    msg->angular_velocity.z *= M_PI/180.0;
 
     imu_buffer.push_back(msg);
     mtx_buffer.unlock();
