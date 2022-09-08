@@ -831,6 +831,10 @@ int main(int argc, char** argv)
     string pos_log_dir = root_dir + "/Log/pos_log.txt";
     fp = fopen(pos_log_dir.c_str(),"w");
 
+    FILE *f_traj_tum;
+    string traj_tum_path = root_dir + "/Log/traj.txt";
+    f_traj_tum = fopen(traj_tum_path.c_str(),"w");
+
     ofstream fout_pre, fout_out, fout_dbg;
     fout_pre.open(DEBUG_FILE_DIR("mat_pre.txt"),ios::out);
     fout_out.open(DEBUG_FILE_DIR("mat_out.txt"),ios::out);
@@ -981,6 +985,13 @@ int main(int argc, char** argv)
             if (scan_pub_en && scan_body_pub_en) publish_frame_body(pubLaserCloudFull_body);
             // publish_effect_world(pubLaserCloudEffect);
             // publish_map(pubLaserCloudMap);
+
+            //write traj
+            fprintf(f_traj_tum, "%lf ", Measures.lidar_beg_time);
+            fprintf(f_traj_tum, "%lf %lf %lf ", state_point.pos(0), state_point.pos(1), state_point.pos(2));
+            fprintf(f_traj_tum, "%lf %lf %lf %lf", geoQuat.x, geoQuat.y, geoQuat.z, geoQuat.w);
+            fprintf(f_traj_tum, "\r\n");
+            fflush(f_traj_tum);
 
             /*** Debug variables ***/
             if (runtime_pos_log)
